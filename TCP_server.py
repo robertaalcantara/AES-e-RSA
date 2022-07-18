@@ -2,7 +2,6 @@ import socket
 import time
 import pickle
 from Crypto.PublicKey import RSA
-from Crypto.Util import randpool
 
 HOST = "123.123.123.123"  
 PORT = 55443  
@@ -11,17 +10,22 @@ def TCP_server(HEADER_SIZE, extra_sleep):
     f = open('arquivo_recebido.txt', 'wb')
 
     #generate the RSA key
-    blah = randpool.RandomPool()
-    RSAKey = RSA.generate(512, blah.get_bytes)
+    RSAKey = RSA.generate(1024)
     
     RSAPubKey = RSAKey.publickey()
+
+    print(RSAPubKey)
+    print(type(RSAPubKey))
     
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
         
         conn, addr = s.accept()
-        l = conn.recv(1000 - HEADER_SIZE)
+        #l = conn.recv(1000 - HEADER_SIZE)
+        pickle_dump = pickle.dumps(RSAPubKey)
+        print(pickle_dump)
+        print(len(pickle_dump))
         conn.send(pickle.dumps(RSAPubKey))
 
         rcstring = ''
@@ -43,3 +47,6 @@ def TCP_server(HEADER_SIZE, extra_sleep):
 
         encmessage = pickle.loads(rcstring)
         print(encmessage)
+
+if __name__ == '__main__':
+    TCP_server(66, False)
