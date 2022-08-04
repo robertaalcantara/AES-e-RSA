@@ -55,9 +55,11 @@ def TCP_server_RSA(extra_sleep):
         f.close()
         conn.close()
 
-def TCP_server_AES(HEADER_SIZE, extra_sleep):
+def TCP_server_AES(HEADER_SIZE):
     f = open('arquivo_recebido.txt', 'wb')
     key = get_random_bytes(16)
+
+    print("READY")
     
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
@@ -77,14 +79,16 @@ def TCP_server_AES(HEADER_SIZE, extra_sleep):
         while(chunk):
             chunk = conn.recv(1000-HEADER_SIZE)
             ciphertext += chunk
-        if extra_sleep:
-            time.sleep(5)
         
+        print("ACABOU WHILE")
+        conn.close()
+
+        print("DECRIPTANDO...")
         t0=time.time()
         l = cipher.decrypt_and_verify(ciphertext, tag)
         f.write(l)
         t1=time.time()
         print(f"tempo: {t1-t0}")
-        
         f.close()
-        conn.close()
+        print("ACABOU TD")
+        
