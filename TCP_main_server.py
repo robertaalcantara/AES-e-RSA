@@ -3,7 +3,7 @@ import time
 
 HEADER_SIZE = 54
 
-for i in range(12):
-    TCP_server_AES(HEADER_SIZE, (i==11))
+for i in range(11):
+    TCP_server_AES(HEADER_SIZE)
     print(f"Finished iteration {i}")
     time.sleep(0.1)
