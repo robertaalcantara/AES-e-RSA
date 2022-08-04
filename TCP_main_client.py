@@ -9,15 +9,15 @@ HEADER_SIZE = 54
 tempos = []
 total_pacotes = []
 
-for i in range(12):
+for i in range(11):
     time.sleep(1)
     tempo, contador_pacotes = TCP_client_AES(HEADER_SIZE)
-    tempos.append(tempo)
-    total_pacotes.append(contador_pacotes)
+    #tempos.append(tempo)
+    #total_pacotes.append(contador_pacotes)
     print(f"Finished iteration {i} {tempo} seg")
     results = pd.DataFrame({
-            'Tempos': tempos,
-            'Pacotes': total_pacotes
+            'Tempos': tempo,
+            'Pacotes': contador_pacotes
         })
 
     if not exists("ResultadosAES.csv"):

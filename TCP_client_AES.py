@@ -12,7 +12,7 @@ def TCP_client_AES(HEADER_SIZE):
     s = socket.socket()         
     host = "123.123.123.123"    
     port = 55443               
-    f = open('arquivo.txt','rb')
+    f = open('pokemon.txt','rb')
     contador_pacotes = 0
 
     t0 = time.time()
@@ -31,6 +31,7 @@ def TCP_client_AES(HEADER_SIZE):
     contador_pacotes+=1
 
     i = 968-HEADER_SIZE
+    print("STARTED")
     while (i < len(ciphertext)):
         if contador_pacotes%10000==0:
             print(f"pacote: {contador_pacotes}")
@@ -44,11 +45,11 @@ def TCP_client_AES(HEADER_SIZE):
         time.sleep(sys.float_info.min)        
     t1 = time.time()
     time.sleep(1)
-    s.shutdown(socket.SHUT_WR)
-    s.close()
     print(f"{t1-t0} seg, {contador_pacotes} pacotes")
     f.close()
 
+    s.shutdown(socket.SHUT_WR)
+    s.close()
     return t1-t0, contador_pacotes
 
 if __name__ == '__main__':
