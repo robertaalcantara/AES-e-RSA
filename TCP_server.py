@@ -7,7 +7,7 @@ from Crypto.Random import get_random_bytes
 HOST = "123.123.123.123"  
 PORT = 55443  
 
-def TCP_server_RSA(extra_sleep):
+def TCP_server_RSA():
     f = open('arquivo_recebido.txt', 'wb')
 
     #generate the RSA key
@@ -27,6 +27,8 @@ def TCP_server_RSA(extra_sleep):
     private_key = RSA.import_key(open("private.pem").read())
     chiper_rsa = PKCS1_OAEP.new(private_key)
     
+    print("READY")
+
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
@@ -49,11 +51,11 @@ def TCP_server_RSA(extra_sleep):
                     l += chiper_rsa.decrypt(chunk)
             f.write(l)
             encrypted_l = conn.recv(1024)
-        if extra_sleep:
-            time.sleep(5)
         
-        f.close()
+        print("saiu while")
         conn.close()
+        f.close()
+        
 
 def TCP_server_AES(HEADER_SIZE):
     f = open('arquivo_recebido.txt', 'wb')
