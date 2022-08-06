@@ -94,3 +94,24 @@ def TCP_server_AES(HEADER_SIZE):
         f.close()
         print("ACABOU TD")
         
+
+def TCP_server(HEADER_SIZE):
+    f = open('arquivo_recebido.txt', 'wb')
+
+    print("READY")
+    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((HOST, PORT))
+        s.listen()
+        
+        conn, addr = s.accept()
+
+        l=conn.recv(1000-HEADER_SIZE)
+        while(l):
+            l = conn.recv(1000-HEADER_SIZE)
+            f.write(l)
+        
+        print("ACABOU WHILE")
+        conn.close()
+
+        f.close()
