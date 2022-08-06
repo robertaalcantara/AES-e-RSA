@@ -11,7 +11,7 @@ tempos = []
 total_pacotes = []
 
 for i in range(11):
-    tempo, contador_pacotes = TCP_client(HEADER_SIZE)
+    tempo, contador_pacotes = TCP_client_RSA(HEADER_SIZE)
 
     print(f"Finished iteration {i} {tempo} seg")
     results = pd.DataFrame({
