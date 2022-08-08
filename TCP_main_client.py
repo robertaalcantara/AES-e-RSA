@@ -1,6 +1,5 @@
 from TCP_client_AES import TCP_client_AES
-from TCP_client_RSA import TCP_client_RSA 
-from TCP_client import TCP_client 
+from TCP_client_RSA import TCP_client_RSA
 import time
 import pandas as pd
 from os.path import exists
@@ -11,7 +10,7 @@ tempos = []
 total_pacotes = []
 
 for i in range(11):
-    tempo, contador_pacotes = TCP_client(HEADER_SIZE)
+    tempo, contador_pacotes = TCP_client_AES(HEADER_SIZE)
 
     print(f"Finished iteration {i} {tempo} seg")
     results = pd.DataFrame({

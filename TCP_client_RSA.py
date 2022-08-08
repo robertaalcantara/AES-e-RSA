@@ -1,11 +1,8 @@
 import socket
 import time 
 import sys
-import pickle
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
-
-#TAMANHO MAXIMO QUE PODE SER ENCRIPTADO POR VEZ = 86 BYTES
 
 def TCP_client_RSA(HEADER_SIZE):
     s = socket.socket()         
